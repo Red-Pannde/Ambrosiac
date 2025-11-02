@@ -26,5 +26,7 @@
   "item.minecraft.splash_potion.effect.dolphins_grace_potion" : "Splash Potion of the Dolphin's Grace",
   "item.minecraft.lingering_potion.effect.dolphins_grace_potion" : "Lingering Potion of the Dolphin's Grace",
 
-  "itemGroup.ambrosiac" : "Ambrosiac"
+  "itemGroup.ambrosiac" : "Ambrosiac",
+
+  "blockentity.ambrosiac.alchemists_cauldron" : "Alchemist's Cauldron"
 }

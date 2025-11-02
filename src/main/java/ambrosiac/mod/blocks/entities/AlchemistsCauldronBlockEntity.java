@@ -70,7 +70,7 @@ public class AlchemistsCauldronBlockEntity extends BlockEntity implements Implem
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("Alchemist's               Cauldron");
+        return Text.translatable("blockentity.ambrosiac.alchemists_cauldron");
     }
 
     @Override

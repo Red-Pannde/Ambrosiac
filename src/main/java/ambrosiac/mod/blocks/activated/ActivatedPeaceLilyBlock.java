@@ -1,9 +1,7 @@
 package ambrosiac.mod.blocks.activated;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidDrainable;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -12,6 +10,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
@@ -19,10 +20,22 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
-public class ActivatedPeaceLilyBlock extends Block implements FluidDrainable{
+public class ActivatedPeaceLilyBlock extends PlantBlock implements FluidDrainable{
+    private static final VoxelShape SHAPE = VoxelShapes.union(
+            Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 10.0, 12.0));
     public ActivatedPeaceLilyBlock(Settings settings) {
         super(settings);
     }
+
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return null;
+    }
+    @Override
+    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return SHAPE;
+    }
+
     public void surroundingCheck(World world, BlockPos pos, int distance, float probability, int maxOperations, BiFunction<BlockPos, BlockState, Boolean> supplier) {
         int operations = 0;
         if (world.getRandom().nextFloat() <= probability) {

@@ -55,7 +55,7 @@ public class ModBlocks {
     );
     public static final Block ALCHEMISTS_CAULDRON = register(
             "alchemists_cauldron",
-            new AlchemistsCauldronBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.METAL).dynamicBounds()),
+            new AlchemistsCauldronBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.METAL).dynamicBounds().strength(1.0f, 3.0f)),
             true
     );
     public static final Block SWISS_CHARD = register(
@@ -86,21 +86,5 @@ public class ModBlocks {
 
 
     public static void initialize() {
-
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> {
-            itemGroup.add(ModBlocks.DAHLIA.asItem());
-        });
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> {
-            itemGroup.add(ModBlocks.ALCHEMISTS_CAULDRON.asItem());
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> {
-            itemGroup.add(ModBlocks.SWISS_CHARD.asItem());
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> {
-            itemGroup.add(ModBlocks.PEACE_LILY.asItem());
-        });
-
     }
 }

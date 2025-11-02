@@ -10,19 +10,22 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class AlchemistsCauldronScreen extends HandledScreen<AlchemistsCauldronScreenHandler> {
+    protected int backgroundHeight = 186;
     public AlchemistsCauldronScreen(AlchemistsCauldronScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
+        this.playerInventoryTitleY = this.backgroundHeight - 94;
     }
+
 
     private static final Identifier TEXTURE = Identifier.of(Ambrosiac.MOD_ID, "screens/alchemists_cauldron_gui.png");
     private static final Identifier INFUSING_BUTTON = Identifier.of(Ambrosiac.MOD_ID, "widgets/alchemists_infusing_button.png");
 
     @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        context.drawTexture( TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 176, 166);
+        context.drawTexture( TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 176, 186);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        context.drawTexture(INFUSING_BUTTON, x + 149, y + 58, 0, 0, 22, 20, 22, 20);
+        context.drawTexture(INFUSING_BUTTON, x + 149, y + 88, 0, 0, 22, 20, 22, 20);
 
     }
 
@@ -31,7 +34,7 @@ public class AlchemistsCauldronScreen extends HandledScreen<AlchemistsCauldronSc
         super.init();
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        AlchemistsWandWidget alchemistsWandWidget = new AlchemistsWandWidget(i + 151, j + 60, 18, 18, Text.translatable("bwaa :3"));
+        AlchemistsWandWidget alchemistsWandWidget = new AlchemistsWandWidget(i + 151, j + 88, 18, 18, Text.translatable("bwaa :3"));
         addDrawableChild(alchemistsWandWidget);
     }
 

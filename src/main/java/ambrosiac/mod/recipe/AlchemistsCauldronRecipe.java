@@ -14,13 +14,16 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 @SuppressWarnings("deprecation")
 public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipeInput> {
 
     private final DefaultedList<Ingredient> ingredients;
     private final ItemStack result;
-    public AlchemistsCauldronRecipe(DefaultedList<Ingredient> ingredients, ItemStack result) {
-        this.ingredients = ingredients;
+    public AlchemistsCauldronRecipe(List<Ingredient> ingredients, ItemStack result) {
+        this.ingredients = DefaultedList.ofSize(ingredients.size());
+        this.ingredients.addAll(ingredients);
         this.result = result;
     }
 
@@ -81,7 +84,7 @@ public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipe
                                 ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
 
                         )
-                        .apply(instance,  AlchemistsCauldronRecipe::new)
+                        .apply(instance, AlchemistsCauldronRecipe::new)
         );
         public static final PacketCodec<RegistryByteBuf, AlchemistsCauldronRecipe> PACKET_CODEC = PacketCodec.tuple(
                 Ingredient.PACKET_CODEC.collect(PacketCodecs.toList()),

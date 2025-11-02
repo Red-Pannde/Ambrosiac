@@ -1,4 +1,5 @@
 {
+	"parent" : "block/block",
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"textures": {
@@ -10,8 +11,9 @@
 		"6": "ambrosiac:block/alchemists_cauldron_side_inside",
 		"7": "ambrosiac:block/alchemists_cauldron_top",
 		"8": "ambrosiac:block/alchemists_cauldron_right",
-		"particle": "ambrosiac:block/alchemists_cauldron_side"
+		"particle": "minecraft:block/blackstone"
 	},
+
 	"elements": [
 		{
 			"from": [2, 7, 2],

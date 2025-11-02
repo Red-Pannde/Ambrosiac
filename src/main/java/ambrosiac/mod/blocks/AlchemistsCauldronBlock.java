@@ -34,7 +34,12 @@ public class AlchemistsCauldronBlock extends BlockWithEntity {
         return new AlchemistsCauldronBlockEntity(pos, state);
     }
     private static final VoxelShape SHAPE = VoxelShapes.union(
-            Block.createCuboidShape(0.0, 5.0, 0.0, 16.0, 15.0, 16.0)
+            Block.createCuboidShape(0.0, 5.0, 0.0, 16.0, 7.0, 16.0),
+            Block.createCuboidShape(1.0, 7.0, 1.0, 15.0, 8.0, 15.0),
+            Block.createCuboidShape(1.0, 7.0, 1.0, 15.0, 16.0, 2.0),
+            Block.createCuboidShape(1.0, 7.0, 14.0, 15.0, 16.0, 15.0),
+            Block.createCuboidShape(1.0, 7.0, 2.0, 2.0, 16.0, 14.0),
+            Block.createCuboidShape(14.0, 7.0, 2.0, 15.0, 16.0, 14.0)
     );
 
     @Override
