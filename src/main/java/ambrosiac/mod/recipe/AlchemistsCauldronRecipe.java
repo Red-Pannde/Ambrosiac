@@ -19,11 +19,10 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipeInput> {
 
-    private final DefaultedList<Ingredient> ingredients;
+    private final List<Ingredient> ingredients;
     private final ItemStack result;
     public AlchemistsCauldronRecipe(List<Ingredient> ingredients, ItemStack result) {
-        this.ingredients = DefaultedList.ofSize(ingredients.size());
-        this.ingredients.addAll(ingredients);
+        this.ingredients = ingredients;
         this.result = result;
     }
 
@@ -55,7 +54,7 @@ public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipe
 
     @Override
     public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        return null;
+        return this.result;
     }
 
     @Override
@@ -70,11 +69,9 @@ public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipe
 
 
     public DefaultedList<Ingredient> getIngredients() {
+        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(this.ingredients.size());
+        ingredients.addAll(this.ingredients);
         return ingredients;
-    }
-
-    public ItemStack getResult() {
-        return result;
     }
 
     public static class Serializer implements RecipeSerializer<AlchemistsCauldronRecipe> {

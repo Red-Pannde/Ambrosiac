@@ -39,7 +39,15 @@ public class AlchemistsCauldronBlock extends BlockWithEntity {
             Block.createCuboidShape(1.0, 7.0, 1.0, 15.0, 16.0, 2.0),
             Block.createCuboidShape(1.0, 7.0, 14.0, 15.0, 16.0, 15.0),
             Block.createCuboidShape(1.0, 7.0, 2.0, 2.0, 16.0, 14.0),
-            Block.createCuboidShape(14.0, 7.0, 2.0, 15.0, 16.0, 14.0)
+            Block.createCuboidShape(14.0, 7.0, 2.0, 15.0, 16.0, 14.0),
+            Block.createCuboidShape(0, 0, 0, 2, 5, 1),
+            Block.createCuboidShape(0, 0, 1, 1, 5, 2),
+            Block.createCuboidShape(14, 0, 0, 16, 5, 1),
+            Block.createCuboidShape(15, 0, 1, 16, 5, 2),
+            Block.createCuboidShape(0, 0, 15, 2, 5, 16),
+            Block.createCuboidShape(0, 0, 14, 1, 5, 15),
+            Block.createCuboidShape(14, 0, 15, 16, 5, 16),
+            Block.createCuboidShape(15, 0, 14, 16, 5, 15)
     );
 
     @Override
