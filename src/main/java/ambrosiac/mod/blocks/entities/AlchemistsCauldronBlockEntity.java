@@ -116,7 +116,7 @@ public class AlchemistsCauldronBlockEntity extends BlockEntity implements Implem
         Item result = (recipe.value().craft(recipeInput, registries)).getItem();
         boolean recipeMatches = recipe.value().matches(recipeInput, world);
         boolean isOutputEmpty = this.getStack(OUTPUT_SLOT).isEmpty();
-        boolean isOutputCorrectAndNotFull = (this.getStack(OUTPUT_SLOT).getItem().equals(result) && this.getStack(OUTPUT_SLOT).getCount() <= getMaxCount(result.getDefaultStack()));
+        boolean isOutputCorrectAndNotFull = (this.getStack(OUTPUT_SLOT).getItem().equals(result) && this.getStack(OUTPUT_SLOT).getCount() < getMaxCount(result.getDefaultStack()));
 
         boolean canInsertItemIntoOutput = isOutputEmpty || isOutputCorrectAndNotFull;
         if (recipe != null && canInsertItemIntoOutput && recipeMatches) {
@@ -141,7 +141,7 @@ public class AlchemistsCauldronBlockEntity extends BlockEntity implements Implem
             AlchemistsCauldronBlockEntity.this.removeStack(i, 1);
         }
         Item output = recipe.value().craft(recipeInput, dynamicRegistryManager).getItem();
-        ItemStack result = new ItemStack(output, this.getStack(OUTPUT_SLOT).getCount());
+        ItemStack result = new ItemStack(output, this.getStack(OUTPUT_SLOT).getCount() + 1);
         this.setStack(OUTPUT_SLOT, result);
 
     }
