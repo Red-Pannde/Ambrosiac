@@ -12,11 +12,13 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +68,8 @@ public class AlchemistsCauldronRecipeBuilder implements CraftingRecipeJsonBuilde
 
         return this;
     }
+
+
     @Override
 
     public CraftingRecipeJsonBuilder criterion(String name, AdvancementCriterion<?> criterion) {
@@ -92,10 +96,13 @@ public class AlchemistsCauldronRecipeBuilder implements CraftingRecipeJsonBuilde
         exporter.accept(recipeId, alchemistsCauldronRecipe, builder.build(recipeId.withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 
-    private void validate(Identifier recipeId) {
+    void validate(Identifier recipeId) {
         if (this.advancementBuilder.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + String.valueOf(recipeId));
         }
 
     }
+
+
+
 }

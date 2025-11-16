@@ -33,17 +33,12 @@ public class AlchemistsCauldronScreenHandler extends ScreenHandler {
         int m;
         int l;
         // Our inventory
-       /* for (m = 0; m < 2; ++m) {
-            for (l = 0; l < 2; ++l) {
-                this.addSlot(new Slot(inventory, l + m * 2, 62 + l * 18, 17 + m * 18));
-            }
-        }
-        */
-        this.addSlot(new Slot(inventory, 0, 75, 28));
-        this.addSlot(new Slot(inventory, 1, 109, 59));
-        this.addSlot(new Slot(inventory, 2, 64, 81));
 
-        this.addSlot(new Slot(inventory, 3, 80, 55) {
+        this.addSlot(new Slot(inventory, 0, 75, 8));
+        this.addSlot(new Slot(inventory, 1, 109, 39));
+        this.addSlot(new Slot(inventory, 2, 64, 61));
+
+        this.addSlot(new Slot(inventory, 3, 80, 35) {
             public boolean canInsert (ItemStack stack){
                 return false;
             }
@@ -51,12 +46,12 @@ public class AlchemistsCauldronScreenHandler extends ScreenHandler {
         // The player inventory
         for (m = 0; m < 3; ++m) {
             for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 104 + m * 18));
+                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
             }
         }
         // The player Hotbar
         for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 162));
+            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
         }
 
 

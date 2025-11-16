@@ -1,14 +1,18 @@
 package ambrosiac.mod;
 
 import ambrosiac.mod.datagen.AmbrosiacRecipeProvider;
+import ambrosiac.mod.datagen.AmbrosiacTagGen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 public class AmbrosiacDataGenerator implements DataGeneratorEntrypoint {
+
+
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(AmbrosiacRecipeProvider::new);
+		pack.addProvider(AmbrosiacTagGen::new);
 
 	}
 }

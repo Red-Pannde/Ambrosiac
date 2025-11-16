@@ -10,10 +10,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class AlchemistsCauldronScreen extends HandledScreen<AlchemistsCauldronScreenHandler> {
-    protected int backgroundHeight = 186;
+    protected final Text title1 = Text.translatable("blockentity.ambrosiac.alchemists_cauldron_top");
+    protected final Text title2 = Text.translatable("blockentity.ambrosiac.alchemists_cauldron_bottom");
     public AlchemistsCauldronScreen(AlchemistsCauldronScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.playerInventoryTitleY = this.backgroundHeight - 94;
     }
 
 
@@ -22,10 +22,10 @@ public class AlchemistsCauldronScreen extends HandledScreen<AlchemistsCauldronSc
 
     @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        context.drawTexture( TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 176, 186);
+        context.drawTexture( TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 176, 166);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        context.drawTexture(INFUSING_BUTTON, x + 149, y + 88, 0, 0, 22, 20, 22, 20);
+        context.drawTexture(INFUSING_BUTTON, x + 149, y + 58, 0, 0, 22, 20, 22, 20);
 
     }
 
@@ -34,9 +34,16 @@ public class AlchemistsCauldronScreen extends HandledScreen<AlchemistsCauldronSc
         super.init();
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        AlchemistsWandWidget alchemistsWandWidget = new AlchemistsWandWidget(i + 151, j + 88, 18, 18, Text.translatable("bwaa :3"));
+        AlchemistsWandWidget alchemistsWandWidget = new AlchemistsWandWidget(i + 151, j + 68, 18, 18, Text.translatable("bwaa :3"));
         addDrawableChild(alchemistsWandWidget);
     }
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        context.drawText(this.textRenderer, this.title1, this.titleX, this.titleY, 4210752, false);
+        context.drawText(this.textRenderer, this.title2, this.titleX, this.titleY + 10, 4210752, false);
+        context.drawText(this.textRenderer, this.playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY, 4210752, false);
+    }
+
 
 
     @Override
@@ -50,7 +57,7 @@ public class AlchemistsCauldronScreen extends HandledScreen<AlchemistsCauldronSc
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
         double buttonXpos = i + 151;
-        double buttonYpos = j + 58;
+        double buttonYpos = j + 54;
         if (mouseX >= buttonXpos && mouseX <= buttonXpos + 18 && mouseY >= buttonYpos && mouseY <= buttonYpos + 18) {
             this.client.interactionManager.clickButton((this.handler).syncId, 0);
 

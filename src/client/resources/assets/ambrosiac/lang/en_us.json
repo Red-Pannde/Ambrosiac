@@ -28,5 +28,7 @@
 
   "itemGroup.ambrosiac" : "Ambrosiac",
 
-  "blockentity.ambrosiac.alchemists_cauldron" : "Alchemist's Cauldron"
+  "blockentity.ambrosiac.alchemists_cauldron" : "Alchemist's Cauldron",
+  "blockentity.ambrosiac.alchemists_cauldron_top": "Alchemist's",
+  "blockentity.ambrosiac.alchemists_cauldron_bottom": "Cauldron"
 }

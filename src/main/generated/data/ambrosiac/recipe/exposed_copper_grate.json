@@ -1,0 +1,12 @@
+{
+  "type": "ambrosiac:alchemists_cauldron_infusing",
+  "ingredients": [
+    {
+      "item": "minecraft:copper_grate"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:exposed_copper_grate"
+  }
+}
