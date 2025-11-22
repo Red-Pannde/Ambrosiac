@@ -1,5 +1,6 @@
 package ambrosiac.mod.blocks.entities;
 
+import ambrosiac.mod.blocks.ModBlocks;
 import ambrosiac.mod.items.ModItems;
 import ambrosiac.mod.recipe.AlchemistsCauldronRecipe;
 import ambrosiac.mod.recipe.AlchemistsCauldronRecipeInput;
@@ -18,19 +19,29 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.resource.Resource;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Level;
 
 public class AlchemistsCauldronBlockEntity extends BlockEntity implements ImplementedInventory, ExtendedScreenHandlerFactory<BlockPos> {
     private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2};
@@ -147,12 +158,46 @@ public class AlchemistsCauldronBlockEntity extends BlockEntity implements Implem
     }
 
     public void tryCraft() {
+
+
         if (hasRecipe() && canCraft(world.getRegistryManager(), getRecipe().get(), new AlchemistsCauldronRecipeInput(getIngredients()), inventory)) {
             craftRecipe(world.getRegistryManager(), getRecipe().get(), new AlchemistsCauldronRecipeInput(getIngredients()));
             toUpdatePacket();
 
         }
     }
+
+    public boolean matchElements() {
+        RegistryKey<Biome> biome = (world.getBiome(pos).getKey().get());
+        ArrayList<String> elements = new ArrayList<>();
+        elements.add("liquid_water");
+        Map<String, List<RegistryKey<Biome>>> elementToBiomes = Map.of("liquid_water", List.of(RegistryKey.of(RegistryKeys.BIOME, Identifier.ofVanilla("jungle"))));
+        Map<String, List<BlockState>> elementToCatalysts = Map.of("liquid_water", List.of(ModBlocks.ACTIVATED_PEACE_LILY.getDefaultState()));
+
+        for (int l = elements.size() - 1; l >= 0; l--) {
+            {
+                if (elementToBiomes.get(elements.get(l)).contains(biome)) {
+                    elements.remove(l);
+                }
+                int distance = 3;
+                for (int i = -distance; i <= distance; i++) {
+                    for (int j = -distance; j <= distance; j++) {
+                        for (int k = -distance; k <= distance; k++) {
+
+                            BlockPos newPos = pos.add(i, j, k);
+                            BlockState state = world.getBlockState(newPos);
+
+                            if (elementToCatalysts.get(elements.get(l)).equals(state)) {
+                                elements.remove(l);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return elements.isEmpty();
+    }
+
 
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
