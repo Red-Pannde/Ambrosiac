@@ -18,28 +18,28 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AlchemistsCauldronRecipeBuilder implements CraftingRecipeJsonBuilder {
 
 
-    private final RecipeCategory category;
+    private final RecipeCategory category = RecipeCategory.MISC;
     private final ItemStack output;
+    private final int outputCount;
     private final DefaultedList<Ingredient> inputs = DefaultedList.of();
+    private final List<String> elements;
     private final Map<String, AdvancementCriterion<?>> advancementBuilder = new LinkedHashMap();
     @Nullable
     private String group;
 
-    public AlchemistsCauldronRecipeBuilder(ItemConvertible output, int count, RecipeCategory category) {
+    public AlchemistsCauldronRecipeBuilder(ItemConvertible output, int outputCount, List<String> elements) {
         this.output = output.asItem().getDefaultStack();
-        this.category = category;
+        this.outputCount = outputCount;
+        this.elements = elements;
     }
 
-    public static AlchemistsCauldronRecipeBuilder create(RecipeCategory category, ItemConvertible output, int count) {
-        return new AlchemistsCauldronRecipeBuilder(output, count, category);
+    public static AlchemistsCauldronRecipeBuilder create( ItemConvertible output, int count, List<String> elements) {
+        return new AlchemistsCauldronRecipeBuilder(output, count, elements);
     }
 
     public AlchemistsCauldronRecipeBuilder input(TagKey<Item> tag) {
@@ -51,9 +51,13 @@ public class AlchemistsCauldronRecipeBuilder implements CraftingRecipeJsonBuilde
     }
     public AlchemistsCauldronRecipeBuilder input(ItemConvertible itemProvider, int size) {
         for(int i = 0; i < size; ++i) {
-            this.input(Ingredient.ofItems(new ItemConvertible[]{itemProvider}));
+            this.input(Ingredient.ofItems(itemProvider));
         }
 
+        return this;
+    }
+    public AlchemistsCauldronRecipeBuilder listInput(List<ItemConvertible> itemProviders) {
+        this.input(Ingredient.ofStacks(itemProviders.stream().map(ItemStack::new)));
         return this;
     }
 
@@ -71,8 +75,7 @@ public class AlchemistsCauldronRecipeBuilder implements CraftingRecipeJsonBuilde
 
 
     @Override
-
-    public CraftingRecipeJsonBuilder criterion(String name, AdvancementCriterion<?> criterion) {
+    public AlchemistsCauldronRecipeBuilder criterion(String name, AdvancementCriterion<?> criterion) {
         this.advancementBuilder.put(name, criterion);
         return this;
     }
@@ -92,9 +95,12 @@ public class AlchemistsCauldronRecipeBuilder implements CraftingRecipeJsonBuilde
     public void offerTo(RecipeExporter exporter, Identifier recipeId) {
         this.validate(recipeId);
         Advancement.Builder builder = exporter.getAdvancementBuilder().criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
-        AlchemistsCauldronRecipe alchemistsCauldronRecipe = new AlchemistsCauldronRecipe(this.inputs, this.output);
+        AlchemistsCauldronRecipe alchemistsCauldronRecipe = new AlchemistsCauldronRecipe(this.inputs, this.output, this.elements);
         exporter.accept(recipeId, alchemistsCauldronRecipe, builder.build(recipeId.withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
+
+
+
 
     void validate(Identifier recipeId) {
         if (this.advancementBuilder.isEmpty()) {

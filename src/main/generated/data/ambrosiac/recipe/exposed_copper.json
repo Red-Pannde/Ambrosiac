@@ -1,5 +1,8 @@
 {
   "type": "ambrosiac:alchemists_cauldron_infusing",
+  "elements": [
+    "water"
+  ],
   "ingredients": [
     {
       "item": "minecraft:copper_block"

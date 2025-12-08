@@ -1,0 +1,23 @@
+{
+  "type": "ambrosiac:alchemists_cauldron_infusing",
+  "elements": [
+    "water"
+  ],
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:jungle_sapling"
+      },
+      {
+        "item": "minecraft:mangrove_propagule"
+      }
+    ],
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "ambrosiac:peace_lily"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "replace": true,
+  "values": [
+    "minecraft:jungle",
+    "minecraft:mangrove_swamp",
+    "minecraft:lush_caves",
+    "minecraft:bamboo_jungle"
+  ]
+}

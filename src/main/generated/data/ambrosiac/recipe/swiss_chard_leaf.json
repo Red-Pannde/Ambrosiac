@@ -1,15 +1,18 @@
 {
   "type": "ambrosiac:alchemists_cauldron_infusing",
   "elements": [
-    "water"
+    "ice"
   ],
   "ingredients": [
     {
-      "item": "minecraft:copper_door"
+      "item": "minecraft:kelp"
+    },
+    {
+      "item": "minecraft:bone_meal"
     }
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:exposed_copper_door"
+    "id": "ambrosiac:swiss_chard_leaf"
   }
 }

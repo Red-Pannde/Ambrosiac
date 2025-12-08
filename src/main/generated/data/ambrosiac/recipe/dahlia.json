@@ -1,0 +1,24 @@
+{
+  "type": "ambrosiac:alchemists_cauldron_infusing",
+  "elements": [],
+  "ingredients": [
+    {
+      "item": "minecraft:poppy"
+    },
+    [
+      {
+        "item": "minecraft:spider_eye"
+      },
+      {
+        "item": "minecraft:gunpowder"
+      },
+      {
+        "item": "minecraft:bone"
+      }
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "ambrosiac:dahlia"
+  }
+}

@@ -1,10 +1,16 @@
 {
   "type": "ambrosiac:alchemists_cauldron_infusing",
+  "elements": [],
   "ingredients": [
-    "ambrosiac:dahlia",
-    "minecraft:nether_wart"
+    {
+      "item": "ambrosiac:dahlia"
+    },
+    {
+      "item": "minecraft:poppy"
+    }
   ],
   "result": {
+    "count": 1,
     "id": "ambrosiac:activated_dahlia"
   }
 }

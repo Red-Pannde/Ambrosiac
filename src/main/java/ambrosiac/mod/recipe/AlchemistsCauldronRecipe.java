@@ -1,5 +1,6 @@
 package ambrosiac.mod.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
@@ -21,9 +23,11 @@ public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipe
 
     private final List<Ingredient> ingredients;
     private final ItemStack result;
-    public AlchemistsCauldronRecipe(List<Ingredient> ingredients, ItemStack result) {
+    private final List<String> elements;
+    public AlchemistsCauldronRecipe(List<Ingredient> ingredients, ItemStack result, List<String> elements) {
         this.ingredients = ingredients;
         this.result = result;
+        this.elements = elements;
     }
 
 
@@ -73,13 +77,18 @@ public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipe
         ingredients.addAll(this.ingredients);
         return ingredients;
     }
+    public ArrayList<String> getElements() {
+        ArrayList<String> elements = new ArrayList<>(this.elements);
+        return elements;
+
+    }
 
     public static class Serializer implements RecipeSerializer<AlchemistsCauldronRecipe> {
         private static final MapCodec<AlchemistsCauldronRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 instance -> instance.group(
                                 Ingredient.DISALLOW_EMPTY_CODEC.listOf(1, 3).fieldOf("ingredients").forGetter(recipe -> recipe.ingredients),
-                                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-
+                                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
+                                Codec.STRING.listOf().fieldOf("elements").forGetter(recipe -> recipe.elements)
                         )
                         .apply(instance, AlchemistsCauldronRecipe::new)
         );
@@ -88,10 +97,11 @@ public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipe
                 recipe -> recipe.ingredients,
                 ItemStack.PACKET_CODEC,
                 recipe -> recipe.result,
+                PacketCodecs.STRING.collect(PacketCodecs.toList()),
+                recipe -> recipe.elements,
                 AlchemistsCauldronRecipe::new
 
         );
-
 
 
         @Override

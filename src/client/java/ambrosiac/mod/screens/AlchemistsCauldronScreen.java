@@ -34,7 +34,7 @@ public class AlchemistsCauldronScreen extends HandledScreen<AlchemistsCauldronSc
         super.init();
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        AlchemistsWandWidget alchemistsWandWidget = new AlchemistsWandWidget(i + 151, j + 68, 18, 18, Text.translatable("bwaa :3"));
+        AlchemistsWandWidget alchemistsWandWidget = new AlchemistsWandWidget(i + 151, j + 54, 18, 18, Text.translatable("bwaa :3"));
         addDrawableChild(alchemistsWandWidget);
     }
     @Override

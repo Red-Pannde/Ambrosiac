@@ -5,11 +5,11 @@
   ],
   "ingredients": [
     {
-      "item": "minecraft:copper_door"
+      "item": "minecraft:exposed_cut_copper_slab"
     }
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:exposed_copper_door"
+    "id": "minecraft:weathered_cut_copper_slab"
   }
 }

@@ -5,11 +5,14 @@
   ],
   "ingredients": [
     {
-      "item": "minecraft:copper_door"
+      "item": "ambrosiac:peace_lily"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
     }
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:exposed_copper_door"
+    "id": "ambrosiac:activated_peace_lily"
   }
 }

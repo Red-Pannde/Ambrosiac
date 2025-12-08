@@ -5,11 +5,11 @@
   ],
   "ingredients": [
     {
-      "item": "minecraft:copper_door"
+      "item": "minecraft:exposed_copper_bulb"
     }
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:exposed_copper_door"
+    "id": "minecraft:weathered_copper_bulb"
   }
 }

@@ -1,12 +1,21 @@
 package ambrosiac.mod.blocks.entities;
 
+import ambrosiac.mod.Ambrosiac;
 import ambrosiac.mod.blocks.ModBlocks;
 import ambrosiac.mod.items.ModItems;
 import ambrosiac.mod.recipe.AlchemistsCauldronRecipe;
 import ambrosiac.mod.recipe.AlchemistsCauldronRecipeInput;
 import ambrosiac.mod.recipe.ModRecipes;
 import ambrosiac.mod.screens.AlchemistsCauldronScreenHandler;
+import com.google.gson.JsonElement;
+import com.mojang.logging.LogUtils;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,6 +32,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.resource.Resource;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -36,17 +46,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 
 public class AlchemistsCauldronBlockEntity extends BlockEntity implements ImplementedInventory, ExtendedScreenHandlerFactory<BlockPos> {
     private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2};
     private static final int OUTPUT_SLOT = 3;
     private World world;
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
@@ -128,9 +138,8 @@ public class AlchemistsCauldronBlockEntity extends BlockEntity implements Implem
         boolean recipeMatches = recipe.value().matches(recipeInput, world);
         boolean isOutputEmpty = this.getStack(OUTPUT_SLOT).isEmpty();
         boolean isOutputCorrectAndNotFull = (this.getStack(OUTPUT_SLOT).getItem().equals(result) && this.getStack(OUTPUT_SLOT).getCount() < getMaxCount(result.getDefaultStack()));
-
         boolean canInsertItemIntoOutput = isOutputEmpty || isOutputCorrectAndNotFull;
-        if (recipe != null && canInsertItemIntoOutput && recipeMatches) {
+        if (recipe != null && canInsertItemIntoOutput && recipeMatches && matchElements(recipe.value())) {
             return true;
         } else return false;
     }
@@ -167,33 +176,44 @@ public class AlchemistsCauldronBlockEntity extends BlockEntity implements Implem
         }
     }
 
-    public boolean matchElements() {
-        RegistryKey<Biome> biome = (world.getBiome(pos).getKey().get());
-        ArrayList<String> elements = new ArrayList<>();
-        elements.add("liquid_water");
-        Map<String, List<RegistryKey<Biome>>> elementToBiomes = Map.of("liquid_water", List.of(RegistryKey.of(RegistryKeys.BIOME, Identifier.ofVanilla("jungle"))));
-        Map<String, List<BlockState>> elementToCatalysts = Map.of("liquid_water", List.of(ModBlocks.ACTIVATED_PEACE_LILY.getDefaultState()));
+    public boolean matchElements(AlchemistsCauldronRecipe recipe) {
+        RegistryEntry<Biome> biome = (world.getBiome(pos));
+        ArrayList<String> elements = new ArrayList<>(recipe.getElements());
+        if (elements.isEmpty()) {
+            return true;
+        }
+        HashMap<String, TagKey<Biome>> elementToBiome = new java.util.HashMap<>(Map.of());
+        HashMap<String, TagKey<Block>> elementToCatalyst = new java.util.HashMap<>(Map.of());
 
-        for (int l = elements.size() - 1; l >= 0; l--) {
-            {
-                if (elementToBiomes.get(elements.get(l)).contains(biome)) {
+        for (String element : elements) {
+            elementToCatalyst.put(element, TagKey.of(RegistryKeys.BLOCK, Identifier.of(Ambrosiac.MOD_ID, element)));
+            elementToBiome.put(element, TagKey.of(RegistryKeys.BIOME, Identifier.of(Ambrosiac.MOD_ID, element)));
+        }
+
+        for (int l = elements.size() - 1; l > -1; l--) {
+                if (biome.isIn(elementToBiome.get(elements.get(l)))) {
                     elements.remove(l);
+                    if (elements.isEmpty()) {
+                        return true;
+                    }
                 }
                 int distance = 3;
-                for (int i = -distance; i <= distance; i++) {
-                    for (int j = -distance; j <= distance; j++) {
-                        for (int k = -distance; k <= distance; k++) {
+                for (int i = 0; i <= distance; i++) {
+                    for (int j = 0; j <= distance; j++) {
+                        for (int k = 0; k <= distance; k++) {
 
                             BlockPos newPos = pos.add(i, j, k);
                             BlockState state = world.getBlockState(newPos);
 
-                            if (elementToCatalysts.get(elements.get(l)).equals(state)) {
+                            if (state.isIn(elementToCatalyst.get(elements.get(l)))) {
                                 elements.remove(l);
+                                if (elements.isEmpty()) {
+                                    return true;
+                                }
                             }
                         }
                     }
                 }
-            }
         }
         return elements.isEmpty();
     }
