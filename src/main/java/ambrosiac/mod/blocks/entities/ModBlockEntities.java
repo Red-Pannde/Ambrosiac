@@ -1,7 +1,7 @@
 package ambrosiac.mod.blocks.entities;
 
 import ambrosiac.mod.Ambrosiac;
-import ambrosiac.mod.blocks.ModBlocks;
+import ambrosiac.mod.registry.ModBlocks;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,6 +15,9 @@ public class ModBlockEntities {
     public static final BlockEntityType<AlchemistsCauldronBlockEntity> ALCHEMISTS_CAULDRON_BLOCK_ENTITY =
             register("alchemy_crafting", AlchemistsCauldronBlockEntity::new, ModBlocks.ALCHEMISTS_CAULDRON);
 
+    public static final BlockEntityType<SturdyFrameBlockEntity> STURDY_FRAME_BLOCK_ENTITY =
+            register("sturdy_frame_inventory", SturdyFrameBlockEntity::new, ModBlocks.STURDY_FRAME);
+
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
@@ -23,6 +26,7 @@ public class ModBlockEntities {
         Identifier id = Identifier.of(Ambrosiac.MOD_ID, name);
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
     }
+
     public static void initialize() {
 
     }

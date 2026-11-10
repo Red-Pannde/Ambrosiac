@@ -1,7 +1,7 @@
 package ambrosiac.mod.datagen;
 
 import ambrosiac.mod.Ambrosiac;
-import ambrosiac.mod.blocks.ModBlocks;
+import ambrosiac.mod.registry.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
@@ -9,7 +9,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.Biome;
 
 import java.util.concurrent.CompletableFuture;
 

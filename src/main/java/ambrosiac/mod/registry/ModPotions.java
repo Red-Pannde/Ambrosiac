@@ -1,4 +1,4 @@
-package ambrosiac.mod.potion;
+package ambrosiac.mod.registry;
 
 import ambrosiac.mod.Ambrosiac;
 import net.minecraft.entity.effect.StatusEffectInstance;

@@ -3,18 +3,18 @@ package ambrosiac.mod.datagen;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import ambrosiac.mod.blocks.ModBlocks;
-import ambrosiac.mod.items.ModItems;
+import ambrosiac.mod.registry.ModBlocks;
+import ambrosiac.mod.registry.ModItems;
 import ambrosiac.mod.recipe.AlchemistsCauldronRecipeBuilder;
-import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.Nullable;
 
 public class AmbrosiacRecipeProvider extends FabricRecipeProvider {
@@ -114,5 +114,10 @@ public class AmbrosiacRecipeProvider extends FabricRecipeProvider {
 
 
 
+    }
+
+    @Override
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+        return null;
     }
 }

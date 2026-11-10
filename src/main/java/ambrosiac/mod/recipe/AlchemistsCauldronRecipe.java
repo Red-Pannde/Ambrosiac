@@ -1,5 +1,6 @@
 package ambrosiac.mod.recipe;
 
+import ambrosiac.mod.registry.ModRecipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -15,7 +16,6 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
@@ -77,9 +77,8 @@ public class AlchemistsCauldronRecipe implements Recipe<AlchemistsCauldronRecipe
         ingredients.addAll(this.ingredients);
         return ingredients;
     }
-    public ArrayList<String> getElements() {
-        ArrayList<String> elements = new ArrayList<>(this.elements);
-        return elements;
+    public List<String> getElements() {
+        return this.elements;
 
     }
 

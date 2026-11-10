@@ -1,7 +1,8 @@
 package ambrosiac.mod.blocks.activated;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
+import net.minecraft.server.dedicated.Settings;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.ShapeContext;

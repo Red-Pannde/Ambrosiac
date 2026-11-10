@@ -1,11 +1,11 @@
 package ambrosiac.mod;
 
 
-import ambrosiac.mod.blocks.ModBlocks;
+import ambrosiac.mod.registry.ModBlocks;
 import ambrosiac.mod.blocks.entities.ModBlockEntities;
-import ambrosiac.mod.items.ModItems;
-import ambrosiac.mod.potion.ModPotions;
-import ambrosiac.mod.recipe.ModRecipes;
+import ambrosiac.mod.registry.ModItems;
+import ambrosiac.mod.registry.ModPotions;
+import ambrosiac.mod.registry.ModRecipes;
 import ambrosiac.mod.screens.ModScreenHandler;
 import net.fabricmc.api.ModInitializer;
 

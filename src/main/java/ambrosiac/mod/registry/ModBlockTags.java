@@ -1,4 +1,4 @@
-package ambrosiac.mod.tags;
+package ambrosiac.mod.registry;
 
 import ambrosiac.mod.Ambrosiac;
 import net.minecraft.block.Block;

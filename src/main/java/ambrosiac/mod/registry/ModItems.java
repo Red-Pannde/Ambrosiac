@@ -1,24 +1,18 @@
-package ambrosiac.mod.items;
+package ambrosiac.mod.registry;
 
 import ambrosiac.mod.Ambrosiac;
-import ambrosiac.mod.blocks.ModBlocks;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import ambrosiac.mod.items.AttributeWand;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 
 public class ModItems {
 
     public static Item register(String id, Item item) {
         // Create the item key.
-        Identifier itemID = Identifier.of(Ambrosiac.MOD_ID, id);
+        Identifier itemID = Identifier.fromNamespaceAndPath(Ambrosiac.MOD_ID, id);
 
         // Create the item instance.
 
@@ -32,14 +26,14 @@ public class ModItems {
     public static final Item ATTRIBUTE_WAND = register("attribute_wand", new AttributeWand(new Item.Settings().maxCount(1)));
 
     public static final Item ACTIVATED_PEACE_LILY = register
-            ("activated_peace_lily", new BlockItem(ModBlocks.ACTIVATED_PEACE_LILY, new Item.Settings().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
+            ("activated_peace_lily", new BlockItem(ModBlocks.ACTIVATED_PEACE_LILY, new Item.Properties().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
 
     public static final Item ACTIVATED_DAHLIA = register
-            ("activated_dahlia",new BlockItem(ModBlocks.ACTIVATED_DAHLIA, new Item.Settings().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
+            ("activated_dahlia",new BlockItem(ModBlocks.ACTIVATED_DAHLIA, new Item.Properties().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
 
 
     public static final Item ACTIVATED_SWISS_CHARD_SEEDS = register
-            ("activated_swiss_chard_seeds", new BlockItem(ModBlocks.ACTIVATED_SWISS_CHARD, new Item.Settings().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
+            ("activated_swiss_chard_seeds", new BlockItem(ModBlocks.ACTIVATED_SWISS_CHARD, new Item.Properties().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
 
     public static final Item SWISS_CHARD_SEEDS = register
             ("swiss_chard_seeds", new BlockItem(ModBlocks.SWISS_CHARD, new Item.Settings()));
@@ -69,6 +63,7 @@ public class ModItems {
                 entries.add(ACTIVATED_SWISS_CHARD_LEAF);
                 entries.add(SWISS_CHARD_SEEDS);
                 entries.add(ACTIVATED_SWISS_CHARD_SEEDS);
+                entries.add(ModBlocks.STURDY_FRAME);
             })
             .build();
 }

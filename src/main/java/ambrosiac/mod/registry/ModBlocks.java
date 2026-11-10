@@ -1,22 +1,16 @@
-package ambrosiac.mod.blocks;
+package ambrosiac.mod.registry;
 
 import ambrosiac.mod.Ambrosiac;
+import ambrosiac.mod.blocks.*;
 import ambrosiac.mod.blocks.activated.ActivatedDahliaBlock;
 import ambrosiac.mod.blocks.activated.ActivatedPeaceLilyBlock;
 import ambrosiac.mod.blocks.activated.ActivatedSwissChardBlock;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+
 
 public class ModBlocks {
     private ComponentMap.Builder components;
@@ -50,37 +44,47 @@ public class ModBlocks {
 
     public static final Block DAHLIA = register(
             "dahlia",
-            new DahliaBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).noCollision().dynamicBounds()),
+            new DahliaBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).noCollision().dynamicBounds().pistonBehavior(PistonBehavior.DESTROY)),
             true
     );
     public static final Block ALCHEMISTS_CAULDRON = register(
             "alchemists_cauldron",
-            new AlchemistsCauldronBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.METAL).dynamicBounds().strength(1.0f, 3.0f)),
+            new AlchemistsCauldronBlock(Block.Settings.create().sounds(BlockSoundGroup.METAL).dynamicBounds().strength(1.0f, 3.0f)),
             true
     );
     public static final Block SWISS_CHARD = register(
             "swiss_chard",
-            new SwissChardBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque()),
+            new SwissChardBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)),
             false
     );
     public static final Block PEACE_LILY = register(
             "peace_lily",
-            new PeaceLilyBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly()),
+            new PeaceLilyBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly().pistonBehavior(PistonBehavior.DESTROY)),
             true
     );
     public static final Block ACTIVATED_PEACE_LILY = register(
             "activated_peace_lily",
-            new ActivatedPeaceLilyBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly()),
+            new ActivatedPeaceLilyBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly().pistonBehavior(PistonBehavior.DESTROY)),
             false
     );
     public static final Block ACTIVATED_DAHLIA = register(
             "activated_dahlia",
-            new ActivatedDahliaBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly()),
+            new ActivatedDahliaBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly().pistonBehavior(PistonBehavior.DESTROY)),
             false
     );
     public static final Block ACTIVATED_SWISS_CHARD = register(
             "activated_swiss_chard",
-            new ActivatedSwissChardBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly()),
+            new ActivatedSwissChardBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AZALEA).dynamicBounds().noCollision().nonOpaque().ticksRandomly().pistonBehavior(PistonBehavior.DESTROY)),
+            false
+    );
+    public static final Block STURDY_FRAME = register(
+            "sturdy_frame",
+            new SturdyFrameBlock(AbstractBlock.Settings.create().nonOpaque()),
+            true
+    );
+    public static final Block POTTED_DAHLIA = register(
+            "potted_dahlia",
+            Blocks.createFlowerPotBlock(DAHLIA),
             false
     );
 

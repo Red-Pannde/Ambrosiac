@@ -1,6 +1,6 @@
 package ambrosiac.mod.blocks.activated;
 
-import ambrosiac.mod.blocks.ModBlocks;
+import ambrosiac.mod.registry.ModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;

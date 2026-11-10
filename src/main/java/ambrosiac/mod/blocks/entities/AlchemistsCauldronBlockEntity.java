@@ -1,19 +1,11 @@
 package ambrosiac.mod.blocks.entities;
 
 import ambrosiac.mod.Ambrosiac;
-import ambrosiac.mod.blocks.ModBlocks;
-import ambrosiac.mod.items.ModItems;
 import ambrosiac.mod.recipe.AlchemistsCauldronRecipe;
 import ambrosiac.mod.recipe.AlchemistsCauldronRecipeInput;
-import ambrosiac.mod.recipe.ModRecipes;
+import ambrosiac.mod.registry.ModRecipes;
 import ambrosiac.mod.screens.AlchemistsCauldronScreenHandler;
-import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,20 +17,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.resource.Resource;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -49,7 +37,6 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.*;
-import java.util.logging.Level;
 
 public class AlchemistsCauldronBlockEntity extends BlockEntity implements ImplementedInventory, ExtendedScreenHandlerFactory<BlockPos> {
     private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2};
@@ -178,7 +165,7 @@ public class AlchemistsCauldronBlockEntity extends BlockEntity implements Implem
 
     public boolean matchElements(AlchemistsCauldronRecipe recipe) {
         RegistryEntry<Biome> biome = (world.getBiome(pos));
-        ArrayList<String> elements = new ArrayList<>(recipe.getElements());
+        List<String> elements = recipe.getElements();
         if (elements.isEmpty()) {
             return true;
         }
